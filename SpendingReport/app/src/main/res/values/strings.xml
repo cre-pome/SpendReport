@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">出費記録アプリ</string>
-    <string name="tab_text_1">今月の記録</string>
-    <string name="tab_text_2">出費履歴</string>
+    <string name="tab_this_month_report">今月の記録</string>
+    <string name="tab_spend_history">出費履歴</string>
 </resources>
