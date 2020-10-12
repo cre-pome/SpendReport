@@ -29,8 +29,9 @@ class MainActivity : AppCompatActivity() {
         tabs.addTab(thisMonthReport)
         tabs.addTab(spendHistoryTab)
 
-
+        viewPager.adapter = TabAdapter(supportFragmentManager,this)
         tabs.setupWithViewPager(viewPager)
+
         val fab: FloatingActionButton = findViewById(R.id.fab)
 
         fab.setOnClickListener { view ->
