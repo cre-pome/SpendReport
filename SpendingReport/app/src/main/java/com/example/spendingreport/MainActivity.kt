@@ -1,14 +1,19 @@
 package com.example.spendingreport
 
 import android.os.Bundle
+import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
+import com.example.spendingreport.db.DatabaseHelper
 
 
 class MainActivity : AppCompatActivity() {
+
+    //　データベースヘルパーオブジェクト
+    private val _helper = DatabaseHelper(this@MainActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,5 +43,15 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show()
         }
+    }
+
+    //　出費登録ボタンが押された時の関数
+    fun onSpendAddButtonClick(view: View){
+
+    }
+
+    override fun onDestroy() {
+        _helper.close()
+        super.onDestroy()
     }
 }
