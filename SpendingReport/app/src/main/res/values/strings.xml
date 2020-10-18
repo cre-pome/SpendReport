@@ -3,4 +3,21 @@
     <string name="tab_this_month_report">今月の記録</string>
     <string name="tab_spend_history">出費履歴</string>
     <string name="button_spend_insert">出費登録</string>
+    <string name="back">戻る</string>
+    <string name="spend_insert_activity">出費登録画面</string>
+    <string name="spend_insert_title">出費を登録してください</string>
+    <string name="spend_value_title">出費額</string>
+    <string name="spend_kind_title">種別</string>
+    <string name="spend_value_hint">0円</string>
+    <string name="spend_date_title">出費日</string>
+    <string name="spend_date_hint">現在時刻</string>
+
+    <string-array name="kinds_array">
+        <item>食費</item>
+        <item>娯楽</item>
+        <item>健康</item>
+        <item>家庭用品</item>
+        <item>本・勉強</item>
+        <item>その他</item>
+    </string-array>
 </resources>

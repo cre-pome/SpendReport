@@ -1,5 +1,6 @@
 package com.example.spendingreport
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -47,7 +48,8 @@ class MainActivity : AppCompatActivity() {
 
     //　出費登録ボタンが押された時の関数
     fun onSpendAddButtonClick(view: View){
-
+        val intent = Intent(this, SpendAddActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroy() {
