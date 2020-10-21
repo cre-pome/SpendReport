@@ -20,7 +20,6 @@ class DatabaseHelper(context: Context):SQLiteOpenHelper(context, DATABASE_NAME, 
         val sb = StringBuilder()
         sb.append("CREATE TABLE spend_history(")
         sb.append("id INTEGER PRIMARY KEY,")
-        sb.append("name TEXT,")
         sb.append("kind TEXT,")
         sb.append("spend money,")
         sb.append("SpendDate datetime")

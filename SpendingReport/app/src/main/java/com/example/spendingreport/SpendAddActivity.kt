@@ -8,13 +8,17 @@ import android.widget.ArrayAdapter
 import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.core.view.get
+import com.example.spendingreport.db.DatabaseManager
 import com.example.spendingreport.ui.main.TimePickerFragment
 import kotlinx.android.synthetic.main.activity_spend_add.*
 
 class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelectedListener{
     private val spinnerFirstIndex = 5
+    private val dbm = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_spend_add)
@@ -51,6 +55,14 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         finish()
     }
 
+    // 登録ボタン押下
+    fun onInsertButton(){
+        // 出費額
+        val spend = editTextNumber.text
+        
+    }
+
+    // 日付入力欄
     private fun showDatePicker() {
         val datePickerDialog = DatePickerDialog(
             this,
