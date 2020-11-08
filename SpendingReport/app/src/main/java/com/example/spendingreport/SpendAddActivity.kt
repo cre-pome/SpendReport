@@ -9,13 +9,11 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.get
-import com.example.spendingreport.db.DatabaseManager
 import com.example.spendingreport.ui.main.TimePickerFragment
 import kotlinx.android.synthetic.main.activity_spend_add.*
 
 class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelectedListener{
     private val spinnerFirstIndex = 5
-    private val dbm = DatabaseManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

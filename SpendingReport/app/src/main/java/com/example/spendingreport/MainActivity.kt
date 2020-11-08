@@ -8,17 +8,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
-import com.example.spendingreport.db.DatabaseHelper
+import io.realm.Realm
 
 
 class MainActivity : AppCompatActivity() {
-
-    //　データベースヘルパーオブジェクト
-    private val _helper = DatabaseHelper(this@MainActivity)
+    private lateinit var realm: Realm
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        realm = Realm.getDefaultInstance()
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
 
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        _helper.close()
         super.onDestroy()
+        realm.close()
     }
 }
