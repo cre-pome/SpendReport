@@ -10,14 +10,19 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.core.view.get
 import com.example.spendingreport.ui.main.TimePickerFragment
+import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_spend_add.*
 
 class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelectedListener{
     private val spinnerFirstIndex = 5
 
+    private lateinit var realm: Realm
+
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+
+        realm = Realm.getDefaultInstance()
 
         setContentView(R.layout.activity_spend_add)
 
@@ -57,6 +62,9 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
     fun onInsertButton(){
         // 出費額
         val spend = editTextNumber.text
+
+        // 出費種別
+        val kind = spinner.selectedItem
         
     }
 
