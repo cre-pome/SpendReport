@@ -1,23 +1,26 @@
 package com.example.spendingreport
 
 import android.app.DatePickerDialog
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.EditText
-import android.widget.Spinner
-import android.widget.TextView
-import androidx.core.view.get
+import android.widget.*
+import androidx.annotation.RequiresApi
 import com.example.spendingreport.ui.main.TimePickerFragment
 import io.realm.Realm
+import io.realm.kotlin.createObject
+import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_spend_add.*
+import java.time.LocalDate
+import java.util.*
 
 class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelectedListener{
     private val spinnerFirstIndex = 5
 
     private lateinit var realm: Realm
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -59,25 +62,45 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
     }
 
     // 登録ボタン押下
-    fun onInsertButton(){
+    fun onInsertButton(view: View){
         // 出費額
-        val spend = editTextNumber.text
+        val spend = editTextNumber.text.toString().toLong()
 
         // 出費種別
         val kind = spinner.selectedItem
+
+        realm.executeTransaction{
+
+            val maxid = realm.where<SpendHistory>().max("id")
+            val nextId = (maxid?.toLong() ?: 0L) + 1L
+            val spendHistory = realm.createObject<SpendHistory>(nextId)
+
+            spendHistory.kind = kind as String
+            spendHistory.spend = spend
+            spendHistory.spendDate = Date()
+        }
+
+        Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_SHORT).show()
+        finish()
         
     }
 
     // 日付入力欄
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun showDatePicker() {
+
+        val s = LocalDate.now()
+
+
+        println(s)
         val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
-                dateSetText.text = "${year}/${month + 1}/${dayOfMonth}"
+                dateSetText.text = "${year}/${month}/${dayOfMonth}"
             },
-            2020,
-            3,
-            1)
+            s.year,
+            s.monthValue ,
+            s.dayOfMonth)
         datePickerDialog.show()
     }
 

@@ -1,4 +1,4 @@
-package com.example.spendingreport.DB
+package com.example.spendingreport
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
