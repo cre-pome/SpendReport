@@ -13,6 +13,8 @@ import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_spend_add.*
 import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelectedListener{
@@ -29,15 +31,20 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
 
         setContentView(R.layout.activity_spend_add)
 
+        //　日付入力テキスト
+        dateSetText.setOnClickListener{
+            showDatePicker()
+        }
+
+        //　日付入力テキストに現在日をセット
+        dateSetText.text = LocalDate.now().toString()
+
         //　時刻入力テキスト
         timeSetText.setOnClickListener{
             TimePickerFragment().show(supportFragmentManager, "timePicker")
         }
 
-        //　日付入力テキスト
-        dateSetText.setOnClickListener{
-            showDatePicker()
-        }
+        timeSetText.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
 
         // スピナーに値を入れる
         val spinner: Spinner = findViewById(R.id.spinner)
@@ -96,7 +103,7 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
-                dateSetText.text = "${year}/${month}/${dayOfMonth}"
+                dateSetText.text = "${year}-${month}-${dayOfMonth}"
             },
             s.year,
             s.monthValue ,
