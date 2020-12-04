@@ -12,6 +12,7 @@ import io.realm.Realm
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_spend_add.*
+import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -76,6 +77,18 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         // 出費種別
         val kind = spinner.selectedItem
 
+        // 日付と時刻を文字列に変換
+        val dateStr = dateSetText.text.toString() + "T" + timeSetText.text + ":00"
+
+        // 日付のフォーマット
+        val df = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+
+        // 文字列をDate型に変換
+        val dt = df.parse(dateStr)
+
+        // 日付の月のみ取得
+        val dm =  SimpleDateFormat("MM").parse(dateStr)
+
         realm.executeTransaction{
 
             val maxid = realm.where<SpendHistory>().max("id")
@@ -84,7 +97,8 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
 
             spendHistory.kind = kind as String
             spendHistory.spend = spend
-            spendHistory.spendDate = Date()
+            spendHistory.spendDate = dt
+           
         }
 
         Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_SHORT).show()
