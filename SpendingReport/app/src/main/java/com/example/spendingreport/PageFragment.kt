@@ -44,6 +44,11 @@ class TabThisMonthFragment: Fragment(){
             .findAll()
             .sort("id", Sort.DESCENDING)
 
+        //　金額の合計
+        val sum = realmResults.sum("spend")
+
+        sumValue.text = sum.toString() + "円"
+
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager
 

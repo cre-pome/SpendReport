@@ -32,6 +32,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBaseline_toBaselineOf="@+id/insertButton"
-        app:layout_constraintEnd_toStartOf="@+id/insertButton"
+        app:layout_constraintEnd_toStartOf="@+id/sumValue"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/sumValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/insertButton"
+        app:layout_constraintEnd_toStartOf="@+id/insertButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

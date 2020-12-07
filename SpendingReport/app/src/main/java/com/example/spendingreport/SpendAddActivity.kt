@@ -102,8 +102,6 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         // 日付の月のみ取得
         val dm = date.year.toString() + "-" + date.monthValue.toString()
 
-        println("dm"+  dm)
-
         realm.executeTransaction{
 
             val maxid = realm.where<SpendHistory>().max("id")
