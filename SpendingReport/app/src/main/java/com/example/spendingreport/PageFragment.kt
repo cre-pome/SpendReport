@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import io.realm.Sort
 import kotlinx.android.synthetic.main.tab_fragment_thismonth.*
 
@@ -27,11 +28,19 @@ class TabThisMonthFragment: Fragment(){
         //　グローバル変数
         val globalValue = GlobalValue.getInstance()
 
+        //　今の月を表示
         thisMonth.text = globalValue.yearOfMonth
 
         // realmインスタンス
-        realm = Realm.getDefaultInstance()
+        val realmConfiguration = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .schemaVersion(0)
+            .build()
+        realm = Realm.getInstance(realmConfiguration)
+
+        // 今月の出費履歴を取得
         val realmResults = realm.where(SpendHistory::class.java)
+            .equalTo("spendMonth", globalValue.yearOfMonth)
             .findAll()
             .sort("id", Sort.DESCENDING)
 

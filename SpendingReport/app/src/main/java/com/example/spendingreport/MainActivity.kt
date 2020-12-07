@@ -9,6 +9,7 @@ import com.google.android.material.tabs.TabLayout
 import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
+import io.realm.RealmConfiguration
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +18,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        realm = Realm.getDefaultInstance()
+        val realmConfiguration = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .schemaVersion(0)
+            .build()
+        realm = Realm.getInstance(realmConfiguration)
 
         val viewPager: ViewPager = findViewById(R.id.view_pager)
 

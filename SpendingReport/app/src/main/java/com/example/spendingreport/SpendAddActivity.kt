@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import com.example.spendingreport.ui.main.TimePickerFragment
 import io.realm.Realm
+import io.realm.RealmConfiguration
 import io.realm.kotlin.createObject
 import io.realm.kotlin.where
 import kotlinx.android.synthetic.main.activity_spend_add.*
@@ -28,7 +29,11 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
 
         super.onCreate(savedInstanceState)
 
-        realm = Realm.getDefaultInstance()
+        val realmConfiguration = RealmConfiguration.Builder()
+            .deleteRealmIfMigrationNeeded()
+            .schemaVersion(0)
+            .build()
+        realm = Realm.getInstance(realmConfiguration)
 
         setContentView(R.layout.activity_spend_add)
 
@@ -70,6 +75,7 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
     }
 
     // 登録ボタン押下
+    @RequiresApi(Build.VERSION_CODES.O)
     fun onInsertButton(view: View){
         // 出費額
         val spend = editTextNumber.text.toString().toLong()
@@ -86,8 +92,17 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         // 文字列をDate型に変換
         val dt = df.parse(dateStr)
 
+        //　日付をLocalDateに変換
+        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+        val date: LocalDate = LocalDate.parse( dateStr, formatter)
+
+        // 月のフォーマット
+        val mf = SimpleDateFormat("yyyy-MM")
+
         // 日付の月のみ取得
-        val dm =  SimpleDateFormat("MM").parse(dateStr)
+        val dm = date.year.toString() + "-" + date.monthValue.toString()
+
+        println("dm"+  dm)
 
         realm.executeTransaction{
 
@@ -98,7 +113,7 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
             spendHistory.kind = kind as String
             spendHistory.spend = spend
             spendHistory.spendDate = dt
-           
+            spendHistory.spendMonth = dm
         }
 
         Toast.makeText(applicationContext, "保存しました", Toast.LENGTH_SHORT).show()
