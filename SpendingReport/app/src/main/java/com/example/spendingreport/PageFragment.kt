@@ -47,7 +47,7 @@ class TabThisMonthFragment: Fragment(){
         //　金額の合計
         val sum = realmResults.sum("spend")
 
-        sumValue.text = sum.toString() + "円"
+        sumValue.text = "総額 " + sum.toString() + "円"
 
         layoutManager = LinearLayoutManager(this.context)
         recyclerView.layoutManager = layoutManager

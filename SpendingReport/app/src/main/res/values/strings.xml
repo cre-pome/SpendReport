@@ -5,6 +5,7 @@
     <string name="button_spend_insert">出費登録</string>
     <string name="back">戻る</string>
     <string name="insert">登録</string>
+    <string name="delete">削除</string>
     <string name="spend_insert_activity">出費登録画面</string>
     <string name="spend_insert_title">出費を登録してください</string>
     <string name="spend_value_title">出費額</string>
@@ -21,5 +22,8 @@
         <item>家庭用品</item>
         <item>本・勉強</item>
         <item>その他</item>
+        <item>交通費</item>
+        <item>服</item>
+        <item>おやつ</item>
     </string-array>
 </resources>

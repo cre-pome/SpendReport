@@ -1,5 +1,6 @@
 package com.example.spendingreport
 
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -35,5 +36,13 @@ class CustomRecyclerViewAdapter(realmResults: RealmResults<SpendHistory>):Recycl
         holder.itemView.setBackgroundColor(
                 if (position %2 == 0) Color.LTGRAY else Color.WHITE
         )
+
+        holder.itemView.setOnClickListener{
+            holder.itemView.isClickable = false
+            val intent = Intent(it.context, SpendAddActivity::class.java)
+            intent.putExtra("id", spendhistory?.id)
+            it.context.startActivity(intent)
+
+        }
     }
 }

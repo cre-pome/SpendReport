@@ -10,6 +10,7 @@ import androidx.viewpager.widget.ViewPager
 import androidx.appcompat.app.AppCompatActivity
 import io.realm.Realm
 import io.realm.RealmConfiguration
+import kotlinx.android.synthetic.main.tab_fragment_thismonth.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -52,6 +53,11 @@ class MainActivity : AppCompatActivity() {
 
     //　出費登録ボタンが押された時の関数
     fun onSpendAddButtonClick(view: View){
+        insertButton.isEnabled = false
+        insertButton.postDelayed({
+            insertButton.isEnabled = true
+        }, 500L)
+
         val intent = Intent(this, SpendAddActivity::class.java)
         startActivity(intent)
     }
