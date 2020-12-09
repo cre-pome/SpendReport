@@ -62,7 +62,8 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
             spinner.setSelection( resources.getStringArray(R.array.kinds_array).indexOf(historyPress?.kind))
 
             // 出費日時(年月)を表示
-            dateSetText.text = historyPress?.spendMonth
+            dateSetText.text = SimpleDateFormat("yyyy-MM-dd").format(historyPress?.spendDate)
+            println("ccc:"+SimpleDateFormat("yyyy-MM-dd").format(historyPress?.spendDate))
 
             // 出費日時(時刻)を表示
             val format = SimpleDateFormat("HH:mm")
@@ -72,25 +73,27 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
             deleteButton.visibility = View.INVISIBLE
 
             spinner.setSelection(spinnerFirstIndex)
-        }
 
+
+
+            //　日付入力テキストに現在日をセット
+            dateSetText.text = LocalDate.now().toString()
+
+
+            timeSetText.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        }
 
         //　日付入力テキスト
         dateSetText.setOnClickListener{
             showDatePicker()
         }
 
-        //　日付入力テキストに現在日をセット
-        dateSetText.text = LocalDate.now().toString()
 
         //　時刻入力テキスト
         timeSetText.setOnClickListener{
             TimePickerFragment().show(supportFragmentManager, "timePicker")
         }
-
-        timeSetText.text = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))
-
-
 
 
         // 登録ボタンを設定　
@@ -116,11 +119,8 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
             val dt = df.parse(dateStr)
 
             //　日付をLocalDateに変換
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-d'T'HH:mm:ss")
             val date: LocalDate = LocalDate.parse( dateStr, formatter)
-
-            // 月のフォーマット
-            val mf = SimpleDateFormat("yyyy-MM")
 
             // 日付の月のみ取得
             val dm = date.year.toString() + "-" + date.monthValue.toString()
@@ -197,14 +197,14 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
         val s = LocalDate.now()
 
 
-        println(s)
+        println("month:"+s.monthValue)
         val datePickerDialog = DatePickerDialog(
             this,
             DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
-                dateSetText.text = "${year}-${month}-${dayOfMonth}"
+                dateSetText.text = "${year}-${month + 1}-${dayOfMonth}"
             },
             s.year,
-            s.monthValue ,
+            s.monthValue - 1 ,
             s.dayOfMonth)
         datePickerDialog.show()
     }
