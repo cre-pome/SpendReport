@@ -119,7 +119,7 @@ class SpendAddActivity : AppCompatActivity() , TimePickerFragment.OnTimeSelected
             val dt = df.parse(dateStr)
 
             //　日付をLocalDateに変換
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-d'T'HH:mm:ss")
+            val formatter = DateTimeFormatter.ofPattern("yyyy-M-dd'T'HH:mm:ss")
             val date: LocalDate = LocalDate.parse( dateStr, formatter)
 
             // 日付の月のみ取得

@@ -14,6 +14,7 @@
     <string name="spend_date_title">出費日</string>
     <string name="spend_date_hint">現在日</string>
     <string name="spend_time_hint">現在時刻</string>
+    <string name="spend_exp_remain">円まで</string>
 
     <string-array name="kinds_array">
         <item>食費</item>
